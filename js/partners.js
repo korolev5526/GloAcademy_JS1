@@ -27,7 +27,7 @@ const renderItems = (data) => {
               </div>
             `;
 
-      console.log(a);
+      cardsRestaurants.append(a);
     }
   );
 };
