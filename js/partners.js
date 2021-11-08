@@ -1,19 +1,20 @@
-const cardsRestaurants = document.querySelector(".cards-restaurants");
+const partners = () => {
+  const cardsRestaurants = document.querySelector(".cards-restaurants");
 
-console.log(cardsRestaurants);
+  console.log(cardsRestaurants);
 
-const renderItems = (data) => {
-  data.forEach((item) => {
-    const a = document.createElement("a");
-    const { image, kitchen, name, price, products, stars, time_of_delivery } =
-      item;
-    a.setAttribute("href", "/restaurant.html");
-    a.classList.add("card");
-    a.classList.add("card-restaurant");
+  const renderItems = (data) => {
+    data.forEach((item) => {
+      const a = document.createElement("a");
+      const { image, kitchen, name, price, products, stars, time_of_delivery } =
+        item;
+      a.setAttribute("href", "/restaurant.html");
+      a.classList.add("card");
+      a.classList.add("card-restaurant");
 
-    a.dataset.products = products;
+      a.dataset.products = products;
 
-    a.innerHTML = `
+      a.innerHTML = `
             <img src="${image}" alt="${name}" class="card-image" />
             <div class="card-text">
               <div class="card-heading">
@@ -27,23 +28,26 @@ const renderItems = (data) => {
               </div>
             `;
 
-    a.addEventListener("click", (e) => {
-      e.preventDefault();
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
 
-      localStorage.setItem("restaurant", JSON.stringify(item));
+        localStorage.setItem("restaurant", JSON.stringify(item));
 
-      window.location.href = "/restaurant.html";
+        window.location.href = "/restaurant.html";
+      });
+
+      cardsRestaurants.append(a);
     });
+  };
 
-    cardsRestaurants.append(a);
-  });
+  fetch("https://glo-academy-js1-default-rtdb.firebaseio.com/db/partners.json")
+    .then((response) => response.json())
+    .then((data) => {
+      renderItems(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
-fetch("https://glo-academy-js1-default-rtdb.firebaseio.com/db/partners.json")
-  .then((response) => response.json())
-  .then((data) => {
-    renderItems(data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+partners();
