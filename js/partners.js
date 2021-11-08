@@ -3,17 +3,17 @@ const cardsRestaurants = document.querySelector(".cards-restaurants");
 console.log(cardsRestaurants);
 
 const renderItems = (data) => {
-  data.forEach(
-    ({ image, kitchen, name, price, products, stars, time_of_delivery }) => {
-      const a = document.createElement("a");
+  data.forEach((item) => {
+    const a = document.createElement("a");
+    const { image, kitchen, name, price, products, stars, time_of_delivery } =
+      item;
+    a.setAttribute("href", "/restaurant.html");
+    a.classList.add("card");
+    a.classList.add("card-restaurant");
 
-      a.setAttribute("href", "/restaurant.html");
-      a.classList.add("card");
-      a.classList.add("card-restaurant");
+    a.dataset.products = products;
 
-      a.dataset.products = products;
-
-      a.innerHTML = `
+    a.innerHTML = `
             <img src="${image}" alt="${name}" class="card-image" />
             <div class="card-text">
               <div class="card-heading">
@@ -27,18 +27,16 @@ const renderItems = (data) => {
               </div>
             `;
 
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        const link = a.dataset.products;
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
 
-        localStorage.setItem("restaurant", link);
+      localStorage.setItem("restaurant", JSON.stringify(item));
 
-        window.location.href = "/restaurant.html";
-      });
+      window.location.href = "/restaurant.html";
+    });
 
-      cardsRestaurants.append(a);
-    }
-  );
+    cardsRestaurants.append(a);
+  });
 };
 
 fetch("https://glo-academy-js1-default-rtdb.firebaseio.com/db/partners.json")

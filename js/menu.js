@@ -29,7 +29,9 @@ const renderItems = (data) => {
 };
 
 if (localStorage.getItem("restaurant")) {
-  fetch(`./db/${localStorage.getItem("restaurant")}`)
+  const restaurant = JSON.parse(localStorage.getItem("restaurant"));
+
+  fetch(`./db/${restaurant.products}`)
     .then((response) => response.json())
     .then((data) => {
       renderItems(data);
