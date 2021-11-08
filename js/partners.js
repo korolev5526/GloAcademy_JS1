@@ -2,7 +2,7 @@ const renderItems = (data) => {
   console.log(data);
 };
 
-fetch("./db/partners.json")
+fetch("https://glo-academy-js1-default-rtdb.firebaseio.com/db/partners.json")
   .then((response) => response.json())
   .then((data) => {
     renderItems(data);
