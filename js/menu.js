@@ -1,16 +1,16 @@
 const menu = () => {
   const cardsMenu = document.querySelector(".cards-menu");
 
-  const cartArray = localStorage.getItem("cart")
-    ? JSON.parse(localStorage.getItem("cart"))
-    : [];
-
   const changeTitle = (restaurant) => {
     const restaurantTitle = document.querySelector(".restaurant-title");
     restaurantTitle.textContent = restaurant.name;
   };
 
   const addToCart = (cartItem) => {
+    const cartArray = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
+
     if (cartArray.some((item) => item.id === cartItem.id)) {
       cartArray.map((item) => {
         if (item.id === cartItem.id) {
